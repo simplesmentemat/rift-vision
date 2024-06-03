@@ -89,8 +89,8 @@ Este projeto está licenciado sob a [MIT License](LICENSE).
 
 ## Contato
 
-Para mais informações, entre em contato com [maatanalista@gmail.co](mailto:maatanalista@gmail.com). Para maior agilidade recomendo usar o discord do [riftvision](https://discord.gg/TqCTsyHF)
+Para mais informações, entre em contato com [maatanalista@gmail.com](mailto:maatanalista@gmail.com). Para maior agilidade recomendo usar o discord do [Rift Vision](https://discord.gg/TqCTsyHF)
 
 ---
 
-RiftVision é um projeto de exemplo e não é afiliado ou endossado pela Riot Games. League of Legends é uma marca registrada da Riot Games, Inc. Todos os direitos reservados.
+RiftVision é um projeto de open source e não é afiliado ou endossado pela Riot Games. League of Legends é uma marca registrada da Riot Games, Inc. Todos os direitos reservados.
