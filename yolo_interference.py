@@ -34,7 +34,7 @@ class RiftVision:
 
         self.num_frames = num_frames if num_frames else self.total_frames
 
-        self.minimap_template_path = 'app/config/minimap_templatep.png'
+        self.minimap_template_path = 'app/config/minimap_template.png'
         self.gold_template_path = 'app/config/gold_table_template.png'
 
         self.minimap_template = self.load_template(self.minimap_template_path)
