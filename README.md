@@ -8,7 +8,7 @@ RiftVision é um projeto de visão computacional que utiliza Machine Learning pa
 - Detecta objetos no minimapa usando o modelo YOLO.
 - Extrai dados de ouro dos jogadores a partir das informações exibidas no vídeo.
 - Converte coordenadas de pixel para coordenadas do mapa de jogo.
-- Gera um vídeo de saída com as detecções e uma JSON contendo os dados extraídos.
+- Gera um vídeo de saída com as detecções e um JSON contendo os dados extraídos.
 
 ## Requisitos
 
@@ -76,8 +76,14 @@ riftvision/
 │
 ├── riftvision.py                  # Script principal do projeto
 ├── requirements.txt               # Dependências do projeto
+├── yolo_interference.py           # Script principal do projeto, mais funcional
 └── README.md                      # Instruções e informações sobre o projeto
 ```
+
+## Configuração dentro do Game
+
+- A escala do mapa deve ser 100.
+- O vídeo deve ser gravado em 1920x1080.
 
 ## Contribuição
 

@@ -1,4 +1,5 @@
 
+import concurrent.futures
 import logging
 
 import cv2
@@ -41,32 +42,49 @@ class VideoProcessor:
             np.array([-120, -120]), np.array([14870, 14980]), self.fps
         )
 
+    def process_frame_batch(self, frame_batch, start_idx, json_file):
+        processed_frames = []
+        for i, frame in enumerate(frame_batch):
+            frame_idx = start_idx + i
+            minimap = self.frame_processor.process_frame(frame, frame_idx, json_file)
+            if minimap is not None:
+                processed_frames.append(minimap)
+        return processed_frames
+
     def process_video(self):
         progress_bar = tqdm(total=self.num_frames, desc="Processing Frames")
 
         frame_idx = 0
         out = None
+        batch_size = 10
 
         with open("output/output_video/data.json", "w") as json_file:
             json_file.write("[\n")
 
             while frame_idx < self.num_frames:
-                ret, frame = self.cap.read()
-                if not ret:
+                frame_batch = []
+                for _ in range(batch_size):
+                    ret, frame = self.cap.read()
+                    if not ret:
+                        break
+                    frame_batch.append(frame)
+
+                if not frame_batch:
                     break
 
-                minimap = self.frame_processor.process_frame(frame, frame_idx, json_file)
-                if minimap is None:
-                    break
+                with concurrent.futures.ThreadPoolExecutor() as executor:
+                    future = executor.submit(self.process_frame_batch, frame_batch, frame_idx, json_file)
+                    processed_frames = future.result()
 
-                if out is None:
+                if processed_frames and out is None:
                     x_min, y_min, x_max, y_max = self.frame_processor.initial_bbox
                     minimap_width, minimap_height = x_max - x_min, y_max - y_min
                     out = cv2.VideoWriter(self.output_video_path, self.fourcc, self.fps, (minimap_width, minimap_height))
 
-                out.write(minimap)
-                frame_idx += 1
-                progress_bar.update(1)
+                for minimap in processed_frames:
+                    out.write(minimap)
+                    frame_idx += 1
+                    progress_bar.update(1)
 
             json_file.write("{}\n]") 
 

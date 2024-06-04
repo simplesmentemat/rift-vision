@@ -34,8 +34,8 @@ class RiftVision:
 
         self.num_frames = num_frames if num_frames else self.total_frames
 
-        self.minimap_template_path = 'input_video/image3.png'
-        self.gold_template_path = 'input_video/image.png'
+        self.minimap_template_path = 'app/config/minimap_templatep.png'
+        self.gold_template_path = 'app/config/gold_table_template.png'
 
         self.minimap_template = self.load_template(self.minimap_template_path)
         self.gold_template = self.load_template(self.gold_template_path)
@@ -176,7 +176,7 @@ class RiftVision:
         frame_idx = 0
         out = None
 
-        with open("output_video/detections.json", "w") as json_file:
+        with open("output/output_video/detections.json", "w") as json_file:
             json_file.write("[\n")
 
             while frame_idx < self.num_frames:
@@ -209,9 +209,9 @@ class RiftVision:
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Video Object Detection with YOLOv5")
-    parser.add_argument('--input', type=str, default='input_video/teste2.mp4', help='Path to input video')
-    parser.add_argument('--output', type=str, default='output_video/result.mp4', help='Path to output video')
-    parser.add_argument('--model', type=str, default='model/best.pt', help='Path to YOLO model')
+    parser.add_argument('--input', type=str, default='app/config/teste2.mp4', help='Path to input video')
+    parser.add_argument('--output', type=str, default='output/output_video/result.mp4', help='Path to output video')
+    parser.add_argument('--model', type=str, default='app/model/best.pt', help='Path to YOLO model')
     parser.add_argument('--frames', type=int, default=None, help='Number of frames to process (default: entire video)')
     return parser.parse_args()
 
